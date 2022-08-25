@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AppService } from './app.service';
 
@@ -7,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): Observable<string> {
-    return this.appService.hello();
+  getHello(@Body('id') id:string ): Observable<string> {
+    return this.appService.hello(id);
   }
 }

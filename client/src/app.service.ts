@@ -19,7 +19,7 @@ export class AppService implements OnModuleInit {
     this.heroService = this.client.getService<HeroService>('HeroService');
   }
 
-  hello(): Observable<string> {
-    return this.heroService.hello({ id: '3' });
+  hello(id): Observable<string> {
+    return this.heroService.hello({ id });
   }
 }
