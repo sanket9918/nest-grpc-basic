@@ -9,20 +9,6 @@ service AuthController {
   rpc SignIn(AuthCredential) returns (LoginResponse);
 }
 
-service HeroService {
-  rpc Hello (HeroId) returns (Hero);
- 
-}
-
-message HeroId {
-  string id = 1;
-}
-
-message Hero {
-  string id = 1;
- 
-}
-
 // Declare the types used above
 message AuthCredential {
   string username = 1;
@@ -35,12 +21,3 @@ message Empty{
 message LoginResponse{
   string accessToken = 1;
 }
-
-// syntax = "proto3";
-
-// package app;
-
-// service HeroService {
-//   rpc Hello (HeroId) returns (Hero) {}
-// }
-
