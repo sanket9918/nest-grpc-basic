@@ -11,7 +11,7 @@ export class AppController {
     return this.appService.hello(id);
   }
 
-  @Post()
+  @Post('/signup')
   signUp(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signup(authCredentials);
   }
