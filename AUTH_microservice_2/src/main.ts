@@ -12,9 +12,10 @@ const microServiceOptions = {
   transport: Transport.GRPC,
   options: {
     package: 'app',
-    protoPath: join(__dirname,"../src/app.proto")
-  }
-}
+    protoPath: join(__dirname, '../src/app.proto'),
+    url: 'auth_api:50051',
+  },
+};
 async function bootstrap() {
   const logger = new Logger();
   // const app = await NestFactory.create(AppModule);

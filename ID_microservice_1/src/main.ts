@@ -11,6 +11,7 @@ async function bootstrap() {
       options: {
         package: 'app',
         protoPath: join(__dirname, '../src/app.proto'),
+        url: 'id_api:50051',
       },
     },
   );

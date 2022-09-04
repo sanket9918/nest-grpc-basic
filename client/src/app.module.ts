@@ -13,6 +13,18 @@ import { AppService } from './app.service';
         options: {
           package: 'app',
           protoPath: join(__dirname, '../src/app.proto'),
+          url: 'id_api:50051',
+        },
+      },
+    ]),
+    ClientsModule.register([
+      {
+        name: 'AUTH',
+        transport: Transport.GRPC,
+        options: {
+          package: 'app',
+          protoPath: join(__dirname, '../src/app.proto'),
+          url: 'auth_api:50051',
         },
       },
     ]),

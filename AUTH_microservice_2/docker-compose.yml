@@ -1,0 +1,50 @@
+services:
+  client:
+    build: ../client/
+    ports:
+      - 3000:3000
+    depends_on:
+      - auth_api
+      - id_api
+
+  id_api:
+    build: 
+      dockerfile: Dockerfile
+      context: ../ID_microservice_1/
+      target: development
+    volumes:
+      - .:/user/src/app
+    expose:
+      - "50051"
+
+  auth_api:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - .:/user/src/app
+    env_file:
+      - .env.stage.dev
+    expose:
+      - "50051"
+ 
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - docker-nest-postgres:/var/lib/postgresql/data
+
+volumes:
+  docker-nest-postgres:
+
+        

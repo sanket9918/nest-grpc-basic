@@ -26,13 +26,14 @@ export class AppService implements OnModuleInit {
   private authService: AuthService;
 
   constructor(
-    @Inject('HERO') private clientHero: ClientGrpc, // @Inject('AUTH') private clientAuth: ClientGrpc,
+    @Inject('HERO') private clientHero: ClientGrpc,
+    @Inject('AUTH') private clientAuth: ClientGrpc,
   ) {}
 
   onModuleInit() {
-    this.authService =
-      this.clientHero.getService<AuthService>('AuthController');
     this.heroService = this.clientHero.getService<HeroService>('HeroService');
+    this.authService =
+      this.clientAuth.getService<AuthService>('AuthController');
   }
 
   hello(id): Observable<string> {
