@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   getHello(@Body('id') id: string): Observable<string> {
-    this.logger.log('Hitting the endpoint.');
+    this.logger.log('Hitting the endpoint (TEST local API).');
     return this.appService.hello(id);
   }
 

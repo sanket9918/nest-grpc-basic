@@ -3,6 +3,9 @@ services:
     build: ./client/
     ports:
       - 3000:3000
+    volumes:
+      - ./client/:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - my-network
     depends_on:
@@ -17,7 +20,8 @@ services:
     networks:
       - my-network
     volumes:
-      - .:/user/src/app
+      - ./ID_microservice_1/:/usr/src/app
+      - /usr/src/app/node_modules
     expose:
       - "50051"
 
@@ -27,7 +31,8 @@ services:
       context: ./AUTH_microservice_2/
       target: development
     volumes:
-      - .:/user/src/app
+      - ./AUTH_microservice_2/:/usr/src/app
+      - /usr/src/app/node_modules
     env_file:
       - .env.stage.dev
     networks:

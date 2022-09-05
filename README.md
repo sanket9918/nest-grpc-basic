@@ -6,6 +6,8 @@ To get started with the project
 ./setup.sh
 docker-compose up
 ```
+N.B - Docker-compose file provided is for dev environment and supports hot reloading.
+
 1.Sample microsevice
 <img src="./image/image.png" height=400>
 
