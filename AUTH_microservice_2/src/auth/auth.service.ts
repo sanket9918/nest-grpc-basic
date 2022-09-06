@@ -13,6 +13,7 @@ import { JwtPayload } from './jwt/jwt-payload.interface';
 import { LoginResponse } from './auth.controller';
 import { User } from '../user/user.entity';
 import { Repository } from 'typeorm';
+import { CustomRpcException } from '../exception/custom.exception';
 
 @Injectable()
 export class AuthService {
@@ -40,9 +41,9 @@ export class AuthService {
     } catch (error) {
       if (error.code === '23505') {
         // duplicate username
-        throw new ConflictException('Username already exists');
+        throw new CustomRpcException('Username already exists', 401);
       } else {
-        throw new InternalServerErrorException();
+        throw new CustomRpcException(error, 500);
       }
     }
   }

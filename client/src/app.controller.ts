@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, UseFilters } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AppService, AuthCredentialDTO } from './app.service';
+import { CustomExceptionFilter } from './rpc-exception.filter';
 
 @Controller()
 export class AppController {
@@ -20,6 +21,7 @@ export class AppController {
   }
 
   @Post('/signup')
+  @UseFilters(CustomExceptionFilter)
   signUp(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signup(authCredentials);
   }
