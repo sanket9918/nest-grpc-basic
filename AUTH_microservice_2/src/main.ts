@@ -20,12 +20,15 @@ async function bootstrap() {
   const logger = new Logger();
   // const app = await NestFactory.create(AppModule);
 
-  const app = await NestFactory.createMicroservice(AppModule, microServiceOptions);
+  const app = await NestFactory.createMicroservice(
+    AppModule,
+    microServiceOptions,
+  );
+
   // app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
   // const port = process.env.PORT;
-  await app.listen()
- 
+  await app.listen();
 }
 bootstrap();

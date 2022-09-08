@@ -1,5 +1,6 @@
-import { Body, Controller, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 
@@ -11,6 +12,24 @@ export interface LoginResponse {
 export class AuthController {
   private logger: Logger = new Logger(AuthController.name);
   constructor(private authService: AuthService) {}
+
+  /**
+   * The methods for behaving as a client does not work like this as the client in this case is itself a microservice.
+   */
+  // @Get('/id')
+  // getHello(@Body('id') id: string): Observable<string> {
+  //   this.logger.log(`Response from Auth microservice acting as client`);
+  //   return this.authService.hello(id);
+  // }
+
+  /**
+   * The GRPC methods that are required as when acting as a microservice
+   */
+  @GrpcMethod('AuthController', 'Hello')
+  helloAuth(@Body('id') id: string): Observable<string> {
+    this.logger.log('');
+    return this.authService.helloAuth(id);
+  }
 
   @GrpcMethod('AuthController', 'SignUp')
   signUp(@Body() authCredentialsDto: AuthCredentialsDto): AuthResponse {

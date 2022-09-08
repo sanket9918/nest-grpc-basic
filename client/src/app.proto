@@ -7,6 +7,7 @@ service AuthController {
   // Declare an rpc for each method that is called via gRPC
   rpc SignUp (AuthCredential) returns (Empty);
   rpc SignIn(AuthCredential) returns (LoginResponse);
+  rpc Hello (HeroId) returns (Hero); //Same deaclaration as the ID microservice
 }
 
 service HeroService {

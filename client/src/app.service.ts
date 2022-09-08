@@ -13,6 +13,7 @@ interface HeroService {
 interface AuthService {
   signUp(authCredential: AuthCredentialDTO): Observable<any>;
   signIn(authCredential: AuthCredentialDTO): Observable<any>;
+  hello(data: HeroId): Observable<any>;
 }
 
 export interface AuthCredentialDTO {
@@ -46,5 +47,9 @@ export class AppService implements OnModuleInit {
 
   signIn(authCredential: AuthCredentialDTO): Observable<any> {
     return this.authService.signIn(authCredential);
+  }
+
+  helloAuth(id): Observable<string> {
+    return this.authService.hello({ id });
   }
 }

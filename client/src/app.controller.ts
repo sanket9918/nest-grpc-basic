@@ -29,4 +29,15 @@ export class AppController {
   signin(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signIn(authCredentials);
   }
+
+  /**
+   * Call from Client to Auth and then from Auth -> Id and return
+   * @param id
+   * @returns
+   */
+  @Get('/auth/id')
+  helloAuth(@Body('id') id: string): Observable<string> {
+    this.logger.log('Hitting the endpoint (TEST local API).');
+    return this.appService.helloAuth(id);
+  }
 }

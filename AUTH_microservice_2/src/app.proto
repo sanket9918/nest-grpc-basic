@@ -7,6 +7,20 @@ service AuthController {
   // Declare an rpc for each method that is called via gRPC
   rpc SignUp (AuthCredential) returns (Empty);
   rpc SignIn(AuthCredential) returns (LoginResponse);
+  rpc Hello (HeroId) returns (Hero);
+}
+
+service HeroService {
+  rpc Hello (HeroId) returns (Hero);
+ 
+}
+message HeroId {
+  string id = 1;
+}
+
+message Hero {
+  string id = 1;
+ 
 }
 
 // Declare the types used above

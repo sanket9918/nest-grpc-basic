@@ -7,9 +7,22 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../user/user.entity';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ClientsModule.register([
+      {
+        name: 'HERO',
+        transport: Transport.GRPC,
+        options: {
+          package: 'app',
+          protoPath: join(__dirname, '../app.proto'),
+          url: 'id_api:50051',
+        },
+      },
+    ]),
     ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
