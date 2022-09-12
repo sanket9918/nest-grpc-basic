@@ -26,6 +26,7 @@ export class AppController {
     return this.appService.signup(authCredentials);
   }
   @Post('/signin')
+  @UseFilters(CustomExceptionFilter)
   signin(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signIn(authCredentials);
   }
@@ -37,7 +38,7 @@ export class AppController {
    */
   @Get('/auth/id')
   helloAuth(@Body('id') id: string): Observable<string> {
-    this.logger.log('Hitting the endpoint (TEST local API).');
+    this.logger.log('Hitting the endpoint (call to AUTH from client).');
     return this.appService.helloAuth(id);
   }
 }

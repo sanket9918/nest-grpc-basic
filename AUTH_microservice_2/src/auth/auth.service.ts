@@ -1,10 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  Logger,
-  OnModuleInit,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import * as bcrypt from 'bcrypt';
@@ -62,7 +56,7 @@ export class AuthService implements OnModuleInit {
     });
 
     try {
-      await this.usersRepository.save(user);
+      await this.usersRepository.save(user);  
     } catch (error) {
       if (error.code === '23505') {
         // duplicate username
@@ -84,7 +78,7 @@ export class AuthService implements OnModuleInit {
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };
     } else {
-      throw new UnauthorizedException('Please check your login data');
+      throw new CustomRpcException('Invalid login credentials', 404);
     }
   }
 }
