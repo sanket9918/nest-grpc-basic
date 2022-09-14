@@ -10,7 +10,7 @@ export class CustomRpcException
   implements ICustomException
 {
   constructor(message: string, statusCode: number) {
-    super(message);
+   super(JSON.stringify({ message, statusCode }));
     this.initStatusCode(statusCode);
   }
   public status: number;

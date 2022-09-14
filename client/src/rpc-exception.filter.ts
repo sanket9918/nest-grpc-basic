@@ -16,19 +16,20 @@ export interface IRpcException {
 export class CustomExceptionFilter implements ExceptionFilter {
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
-  catch(exception: IRpcException, host: ArgumentsHost): void {
+  catch(exception: any, host: ArgumentsHost): void {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
+    const exceptionDetails = JSON.parse(exception.details);
 
-    const httpStatus = exception.status
-      ? exception.status
+    const httpStatus = exceptionDetails.statusCode
+      ? exceptionDetails.statusCode
       : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const responseBody = {
-      statusCode: httpStatus,
+      statusCode: exceptionDetails.statusCode,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
-      message: exception.message,
+      message: exceptionDetails.message,
     };
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
