@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 export interface HeroId {
   id: string;
@@ -37,8 +37,11 @@ export class AppService implements OnModuleInit {
       this.clientAuth.getService<AuthService>('AuthController');
   }
 
-  hello(id): Observable<string> {
-    return this.heroService.hello({ id });
+  async hello(id): Promise<string>{
+    const res = await firstValueFrom(this.heroService.hello({ id }))
+    console.log(res);
+    
+    return res
   }
 
   signup(authCredential: AuthCredentialDTO): Observable<any> {

@@ -12,5 +12,10 @@ message HeroId {
 
 message Hero {
   string id = 1;
+  Error error = 2;
  
+}
+
+message Error {
+  string message = 1;
 }

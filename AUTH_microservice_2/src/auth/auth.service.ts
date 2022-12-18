@@ -8,7 +8,7 @@ import { LoginResponse } from './auth.controller';
 import { User } from '../user/user.entity';
 import { Repository } from 'typeorm';
 import { CustomRpcException } from '../exception/custom.exception';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { ClientGrpc } from '@nestjs/microservices';
 
 /**
@@ -37,11 +37,14 @@ export class AuthService implements OnModuleInit {
 
   private logger: Logger = new Logger(AuthService.name);
 
-  helloAuth(id): Observable<string> {
+  async helloAuth(id): Promise<string> {
     this.logger.log(
       `This call is from Auth and currently tranferring context to ID`,
     );
-    return this.heroService.hello({ id });
+    const res = await firstValueFrom(this.heroService.hello({ id }));
+    console.log(res);
+    
+    return res
   }
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {

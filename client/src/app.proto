@@ -21,6 +21,7 @@ message HeroId {
 
 message Hero {
   string id = 1;
+  Error error = 2 ;
  
 }
 
@@ -33,6 +34,10 @@ message Empty{
 
 }
 
+message Error 
+{
+  string message = 1;
+}
 message LoginResponse{
   string accessToken = 1;
 }

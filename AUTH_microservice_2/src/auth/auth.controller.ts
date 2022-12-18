@@ -26,7 +26,7 @@ export class AuthController {
    * The GRPC methods that are required as when acting as a microservice
    */
   @GrpcMethod('AuthController', 'Hello')
-  helloAuth(@Body('id') id: string): Observable<string> {
+  helloAuth(@Body('id') id: string): Promise<string>{
     this.logger.log('');
     return this.authService.helloAuth(id);
   }

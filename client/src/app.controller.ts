@@ -9,7 +9,7 @@ export class AppController {
   private logger: Logger = new Logger(AppController.name);
 
   @Get()
-  getHello(@Body('id') id: string): Observable<string> {
+  getHello(@Body('id') id: string): Promise<string> {
     this.logger.log('Hitting the endpoint (TEST local API).');
     return this.appService.hello(id);
   }
@@ -21,12 +21,12 @@ export class AppController {
   }
 
   @Post('/signup')
-  @UseFilters(CustomExceptionFilter)
+  // @UseFilters(CustomExceptionFilter)
   signUp(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signup(authCredentials);
   }
   @Post('/signin')
-  @UseFilters(CustomExceptionFilter)
+  // @UseFilters(CustomExceptionFilter)
   signin(@Body() authCredentials: AuthCredentialDTO): Observable<any> {
     return this.appService.signIn(authCredentials);
   }
